@@ -9,7 +9,7 @@ import awsExports from "./aws-exports";
 Amplify.configure(awsExports);
 
 
-export default function IndividualTodos({ key, title, content }) {
+export default function IndividualTodos({ key, title, content, status }) {
     return (
         <div key={key}>
             <Heading
@@ -17,7 +17,20 @@ export default function IndividualTodos({ key, title, content }) {
                 level={6} 
             >
                 {title}
-            </Heading>        
+            </Heading>     
+            <Text
+                variation="primary"
+                as="p"
+                color="black"
+                lineHeight="1.5em"
+                fontWeight={400}
+                fontSize="1em"
+                fontStyle="normal"
+                textDecoration="none"
+                width="30vw"
+            >
+                {status}
+            </Text>   
             <Text
                 variation="primary"
                 as="p"

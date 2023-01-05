@@ -34,7 +34,7 @@ const App = ({ signOut, user }) => {
   async function addTodo() {
     try {
       if (!formState.name || !formState.description) return
-      const todo = { ...formState }
+      const todo = { ...formState, status: "all" }
       setTodos([...todos, todo])
       setFormState(initialState)
       await API.graphql(graphqlOperation(createTodo, {input: todo}))
@@ -63,7 +63,7 @@ const App = ({ signOut, user }) => {
     <button style={styles.button} onClick={addTodo}>Create Todo</button>
     {
       todos.map((todo, index) => (
-        <IndividualTodos key={todo.id ? todo.id : index} title={todo.name} content={todo.description}/>
+        <IndividualTodos key={todo.id ? todo.id : index} title={todo.name} content={todo.description} status={todo.status}/>
       ))
     }
   </div>
