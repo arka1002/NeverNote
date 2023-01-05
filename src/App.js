@@ -63,7 +63,7 @@ const App = ({ signOut, user }) => {
     <button style={styles.button} onClick={addTodo}>Create Todo</button>
     {
       todos.map((todo, index) => (
-        <IndividualTodos key={todo.id ? todo.id : index} title={todo.name} content={todo.description} status={todo.status}/>
+        <IndividualTodos key={todo.id} title={todo.name} content={todo.description} label={todo.status}/>
       ))
     }
   </div>

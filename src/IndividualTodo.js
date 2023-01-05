@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Amplify, API, graphqlOperation } from 'aws-amplify'
-import { createTodo } from './graphql/mutations'
+import { Amplify, API, graphqlOperation, graphql } from 'aws-amplify'
+import { createTodo, updateTodo } from './graphql/mutations'
 import { listTodos } from './graphql/queries'
 import { withAuthenticator, Button, Heading, Text, TextField, View } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
@@ -9,11 +9,23 @@ import awsExports from "./aws-exports";
 Amplify.configure(awsExports);
 
 
-export default function IndividualTodos({ key, title, content, status }) {
-    const [mark, setMark] = useState(status);
+export default function IndividualTodos({ key, title, content, label }) {
+    const [mark, setMark] = useState(label);
     function testChange() {
         setMark("DONE");
     }
+
+
+    async function updateStatus() {
+        setMark("DONE");
+        await API.graphql({ query: updateTodo, variables: {input: {
+            id: key,
+            status: "DONE"
+        }}});
+    }
+
+
+
     return (
         <div key={key}>
             <Heading
@@ -21,7 +33,7 @@ export default function IndividualTodos({ key, title, content, status }) {
                 level={6} 
             >
                 {title}
-            </Heading>     
+            </Heading>
             <Text
                 variation="primary"
                 as="p"
@@ -49,7 +61,7 @@ export default function IndividualTodos({ key, title, content, status }) {
                 {content}
             </Text>
             <Button
-                onClick={testChange}
+                onClick={updateStatus}
             >
                 Click me!
             </Button>
