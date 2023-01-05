@@ -17,8 +17,7 @@ export default function IndividualTodos({ key, title, content }) {
                 level={6} 
             >
                 {title}
-            </Heading>
-            
+            </Heading>        
             <Text
                 variation="primary"
                 as="p"
