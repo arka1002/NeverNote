@@ -10,6 +10,10 @@ Amplify.configure(awsExports);
 
 
 export default function IndividualTodos({ key, title, content, status }) {
+    const [mark, setMark] = useState(status);
+    function testChange() {
+        setMark("DONE");
+    }
     return (
         <div key={key}>
             <Heading
@@ -29,7 +33,7 @@ export default function IndividualTodos({ key, title, content, status }) {
                 textDecoration="none"
                 width="30vw"
             >
-                {status}
+                {mark}
             </Text>   
             <Text
                 variation="primary"
@@ -44,6 +48,11 @@ export default function IndividualTodos({ key, title, content, status }) {
             >
                 {content}
             </Text>
+            <Button
+                onClick={testChange}
+            >
+                Click me!
+            </Button>
         </div>
     );
 }
