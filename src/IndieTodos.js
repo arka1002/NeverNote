@@ -9,24 +9,13 @@ import {
   useMutation,
   useQueryClient,
 } from '@tanstack/react-query'
+import StatusButton from './StatusButton';
 
 
 Amplify.configure(awsExports);
 
 
 export default function IndieTodos({ id, namey, description, status }) {
-    // Access the client
-    const queryClient = useQueryClient();
-    // Mutations
-    const mutation = useMutation({
-        mutationFn: async (add) => {
-            await API.graphql({ query: updateTodo, variables: { input: add } });
-        },
-        onSuccess: () => {
-            // Invalidate and refetch
-            queryClient.invalidateQueries({ queryKey: ['todos'] })
-        },
-    })
     return (
         <div key={id}>
             <Heading
@@ -62,16 +51,7 @@ export default function IndieTodos({ id, namey, description, status }) {
             >
                 {status}
             </Text>
-            <Button
-                onClick={() => {
-                    mutation.mutate({
-                        id: id,
-                        status: 'DONE',
-                    })
-                }}
-            >
-                Click me!
-            </Button>
+            <StatusButton id={id} status={status}/>
         </div>
     );
 }
