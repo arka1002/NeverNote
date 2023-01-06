@@ -8,7 +8,8 @@ import {
   useQuery,
   useMutation,
   useQueryClient,
-} from '@tanstack/react-query'
+} from '@tanstack/react-query';
+import IndieTodos from './IndieTodos';
 
 
 Amplify.configure(awsExports);
@@ -23,15 +24,15 @@ const App = ({ signOut, user }) => {
     return todos;
   } })
   // Mutations
-  const mutation = useMutation({
-    mutationFn: async (add) => {
-      await API.graphql({ query: updateTodo, variables: {input: add}});
-    },
-    onSuccess: () => {
-      // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ['todos'] })
-    },
-  })
+  // const mutation = useMutation({
+  //   mutationFn: async (add) => {
+  //     await API.graphql({ query: updateTodo, variables: {input: add}});
+  //   },
+  //   onSuccess: () => {
+  //     // Invalidate and refetch
+  //     queryClient.invalidateQueries({ queryKey: ['todos'] })
+  //   },
+  // })
 
   return (
     <div style={styles.container}>
@@ -40,54 +41,7 @@ const App = ({ signOut, user }) => {
     <h2>Amplify Todos</h2>
 
        {query.data?.map((todo) => (
-          <div key={todo.id}>
-           <Heading
-             width='30vw'
-             level={6}
-           >
-             {todo.name}
-           </Heading>
-
-           <Text
-             variation="primary"
-             as="p"
-             color="black"
-             lineHeight="1.5em"
-             fontWeight={400}
-             fontSize="1em"
-             fontStyle="normal"
-             textDecoration="none"
-             width="30vw"
-           >
-             {todo.description}
-           </Text>
-           
-           <Text
-             variation="primary"
-             as="p"
-             color="black"
-             lineHeight="1.5em"
-             fontWeight={400}
-             fontSize="1em"
-             fontStyle="normal"
-             textDecoration="none"
-             width="30vw"
-           >
-             {todo.status}
-           </Text>
-
-           <Button
-             onClick={() => {
-               mutation.mutate({
-                 id: todo.id,
-                 status: 'DONE',
-               })
-             }}
-           >
-             DONE
-           </Button>
-          </div>
-          
+          <IndieTodos id={todo.id} namey={todo.name} description={todo.description} status={todo.status}/>
         ))} 
   </div>
   )
