@@ -1,7 +1,7 @@
 import { Amplify, API, graphqlOperation } from 'aws-amplify'
-import { createTodo } from './graphql/mutations'
+import { createTodo, updateTodo } from './graphql/mutations'
 import { listTodos } from './graphql/queries'
-import { withAuthenticator, Button, Heading, Text, TextField, View } from '@aws-amplify/ui-react';
+import { withAuthenticator, Button, Heading, Text } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import awsExports from "./aws-exports";
 import {
@@ -22,6 +22,16 @@ const App = ({ signOut, user }) => {
     const todos = todoData.data.listTodos.items;
     return todos;
   } })
+  // Mutations
+  const mutation = useMutation({
+    mutationFn: async (add) => {
+      await API.graphql({ query: updateTodo, variables: {input: add}});
+    },
+    onSuccess: () => {
+      // Invalidate and refetch
+      queryClient.invalidateQueries({ queryKey: ['todos'] })
+    },
+  })
 
   return (
     <div style={styles.container}>
@@ -65,6 +75,17 @@ const App = ({ signOut, user }) => {
            >
              {todo.status}
            </Text>
+
+           <Button
+             onClick={() => {
+               mutation.mutate({
+                 id: todo.id,
+                 status: 'DONE',
+               })
+             }}
+           >
+             DONE
+           </Button>
           </div>
           
         ))} 
