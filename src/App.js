@@ -50,15 +50,23 @@ const App = ({ signOut, user }) => {
         ))}
         </View>
         <View
-          height="2.5rem"
+          height="100%"
           width="30%"
           backgroundColor={tokens.colors.blue[40]}
-        ></View>
+        >
+          {query.data?.filter(label => label.status == "NOT DONE").map((todo) => (
+          <IndieTodos id={todo.id} namey={todo.name} description={todo.description} status={todo.status} />
+        ))}
+        </View>
         <View
-          height="3rem"
+          height="100%"
           width="30%"
           backgroundColor={tokens.colors.blue[60]}
-        ></View>
+        >
+          {query.data?.filter(label => label.status == "DONE").map((todo) => (
+          <IndieTodos id={todo.id} namey={todo.name} description={todo.description} status={todo.status} />
+        ))}
+        </View>
       </Flex>
     </>
   )
