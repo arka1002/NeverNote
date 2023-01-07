@@ -21,17 +21,6 @@ const App = ({ signOut, user }) => {
     const todos = todoData.data.listTodos.items;
     return todos;
   } })
-  // Mutations
-  // const mutation = useMutation({
-  //   mutationFn: async (add) => {
-  //     await API.graphql({ query: updateTodo, variables: {input: add}});
-  //   },
-  //   onSuccess: () => {
-  //     // Invalidate and refetch
-  //     queryClient.invalidateQueries({ queryKey: ['todos'] })
-  //   },
-  // })
-
   return (
     <div style={styles.container}>
     <Heading level={1}>Hello {user.username}</Heading>

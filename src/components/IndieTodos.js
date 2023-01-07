@@ -1,7 +1,6 @@
 import { Amplify, API, graphqlOperation } from 'aws-amplify'
 import { createTodo, updateTodo } from '../graphql/mutations'
-import { listTodos } from '../graphql/queries'
-import { withAuthenticator, Button, Heading, Text } from '@aws-amplify/ui-react';
+import { Button, Heading, Text } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import awsExports from "../aws-exports";
 import {
