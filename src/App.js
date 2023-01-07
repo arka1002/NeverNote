@@ -37,9 +37,27 @@ const App = ({ signOut, user }) => {
         <Heading level={1}>Hello {user.username}</Heading>
         <Button onClick={signOut} style={styles.button}>Sign out</Button>
         <h2>NeverNote</h2>
-
-        
       </div>
+
+    {/* The input form */}
+    <form onSubmit={handleSubmit(onSubmit)}>
+      {/* register your input into the hook by invoking the "register" function */}
+      <input defaultValue="name" {...register("name", { required: true })} />
+      {errors.name && <span>This field is required</span>}
+      {/* include validation with required or other standard HTML validation rules */}
+      <input {...register("description", { required: true })} />
+      {/* errors will return when field validation fails  */}
+      {errors.description && <span>This field is required</span>}
+      
+      <input type="submit" />
+    </form>
+
+
+
+
+
+
+
       <Flex
         direction="row"
         justifyContent="flex-start"
