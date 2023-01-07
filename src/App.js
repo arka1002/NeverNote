@@ -9,14 +9,22 @@ import {
 } from '@tanstack/react-query';
 import IndieTodos from './components/IndieTodos';
 import { Flex, View, useTheme } from '@aws-amplify/ui-react';
+import { useForm } from "react-hook-form";
 
 
 Amplify.configure(awsExports);
 
 const App = ({ signOut, user }) => {
+  //react-hook-form
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const onSubmit = data => console.log(data);
+
+  //aws amplify ui library
   const { tokens } = useTheme();
+
   // Access the client
   const queryClient = useQueryClient();
+  
   // Queries
   const query = useQuery({ queryKey: ['todos'], queryFn: async () => {
     const todoData = await API.graphql(graphqlOperation(listTodos));
