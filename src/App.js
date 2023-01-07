@@ -8,11 +8,13 @@ import {
   useQueryClient,
 } from '@tanstack/react-query';
 import IndieTodos from './components/IndieTodos';
+import { Flex, View, useTheme } from '@aws-amplify/ui-react';
 
 
 Amplify.configure(awsExports);
 
 const App = ({ signOut, user }) => {
+  const { tokens } = useTheme();
   // Access the client
   const queryClient = useQueryClient();
   // Queries
@@ -22,15 +24,43 @@ const App = ({ signOut, user }) => {
     return todos;
   } })
   return (
-    <div style={styles.container}>
-    <Heading level={1}>Hello {user.username}</Heading>
-    <Button onClick={signOut} style={styles.button}>Sign out</Button>
-    <h2>Amplify Todos</h2>
+    <>
+      <div style={styles.container}>
+        <Heading level={1}>Hello {user.username}</Heading>
+        <Button onClick={signOut} style={styles.button}>Sign out</Button>
+        <h2>NeverNote</h2>
 
-       {query.data?.map((todo) => (
-          <IndieTodos id={todo.id} namey={todo.name} description={todo.description} status={todo.status}/>
-        ))} 
-  </div>
+        
+      </div>
+      <Flex
+        direction="row"
+        justifyContent="flex-start"
+        alignItems="stretch"
+        alignContent="flex-start"
+        wrap="nowrap"
+        gap="1rem"
+      >
+        <View
+          height="100%"
+          width="30%"
+          backgroundColor={tokens.colors.blue[20]}
+        >
+          {query.data?.map((todo) => (
+          <IndieTodos id={todo.id} namey={todo.name} description={todo.description} status={todo.status} />
+        ))}
+        </View>
+        <View
+          height="2.5rem"
+          width="30%"
+          backgroundColor={tokens.colors.blue[40]}
+        ></View>
+        <View
+          height="3rem"
+          width="30%"
+          backgroundColor={tokens.colors.blue[60]}
+        ></View>
+      </Flex>
+    </>
   )
 }
 
