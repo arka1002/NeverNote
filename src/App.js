@@ -1,15 +1,13 @@
 import { Amplify, API, graphqlOperation } from 'aws-amplify'
-import { createTodo, updateTodo } from './graphql/mutations'
 import { listTodos } from './graphql/queries'
-import { withAuthenticator, Button, Heading, Text } from '@aws-amplify/ui-react';
+import { withAuthenticator, Button, Heading } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import awsExports from "./aws-exports";
 import {
   useQuery,
-  useMutation,
   useQueryClient,
 } from '@tanstack/react-query';
-import IndieTodos from './IndieTodos';
+import IndieTodos from './components/IndieTodos';
 
 
 Amplify.configure(awsExports);
