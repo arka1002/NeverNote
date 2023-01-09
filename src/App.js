@@ -1,4 +1,5 @@
 import { Amplify, API, graphqlOperation } from 'aws-amplify'
+import { createTodo } from './graphql/mutations'
 import { listTodos } from './graphql/queries'
 import { withAuthenticator, Button, Heading } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
@@ -19,11 +20,13 @@ Amplify.configure(awsExports);
 const App = ({ signOut, user }) => {
   //react-hook-form
   const { register, handleSubmit, reset, formState, formState: { errors }, formState: { isSubmitSuccessful } } = useForm();
-  const [submittedData, setSubmittedData] = useState({});
   const onSubmit = data => {
     data.status = "NOT DONE";
     console.log(data);
-    setSubmittedData(data);
+    // const addMutation = useMutation({
+    //   mutationFn: async () => await API.graphql(graphqlOperation(createTodo, {input: data})),
+    //   onSuccess: () => queryClient.invalidateQueries({ queryKey: ['todos'] }),
+    // })
   };
 
   //aws amplify ui library
@@ -40,10 +43,12 @@ const App = ({ signOut, user }) => {
       return todos;
     }
   })
+  //Mutations
   const addMutation = useMutation({
-    mutationFn: (add) => fetch(`/api/data?add=${add}`),
+    mutationFn: async (add) => await API.graphql(graphqlOperation(createTodo, {input: add})),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['todos'] }),
   })
+
 
 
   //resetting the form please
@@ -61,7 +66,7 @@ const App = ({ signOut, user }) => {
       </div>
 
       {/* The input form */}
-      <form onSubmit={handleSubmit(onSubmit)} style={styles.container}>
+      <form onSubmit={handleSubmit((data) => addMutation.mutate(data))} style={styles.container}>
         {/* register your input into the hook by invoking the "register" function */}
         <TextField
           descriptiveText="Enter a valid name"
@@ -84,7 +89,7 @@ const App = ({ signOut, user }) => {
       </form>
 
 
-
+ 
 
 
 
