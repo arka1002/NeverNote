@@ -66,7 +66,10 @@ const App = ({ signOut, user }) => {
       </div>
 
       {/* The input form */}
-      <form onSubmit={handleSubmit((data) => addMutation.mutate(data))} style={styles.container}>
+      <form onSubmit={handleSubmit((data) => {
+        data.status = "NOT DONE";
+        addMutation.mutate(data);
+      })} style={styles.container}>
         {/* register your input into the hook by invoking the "register" function */}
         <TextField
           descriptiveText="Enter a valid name"
