@@ -20,14 +20,7 @@ Amplify.configure(awsExports);
 const App = ({ signOut, user }) => {
   //react-hook-form
   const { register, handleSubmit, reset, formState, formState: { errors }, formState: { isSubmitSuccessful } } = useForm();
-  const onSubmit = data => {
-    data.status = "NOT DONE";
-    console.log(data);
-    // const addMutation = useMutation({
-    //   mutationFn: async () => await API.graphql(graphqlOperation(createTodo, {input: data})),
-    //   onSuccess: () => queryClient.invalidateQueries({ queryKey: ['todos'] }),
-    // })
-  };
+
 
   //aws amplify ui library
   const { tokens } = useTheme();
