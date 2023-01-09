@@ -5,12 +5,13 @@ import '@aws-amplify/ui-react/styles.css';
 import awsExports from "./aws-exports";
 import {
   useQuery,
+  useMutation,
   useQueryClient,
 } from '@tanstack/react-query';
 import IndieTodos from './components/IndieTodos';
 import { Flex, View, useTheme, TextField } from '@aws-amplify/ui-react';
 import { useForm } from "react-hook-form";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 
 Amplify.configure(awsExports);
@@ -18,9 +19,11 @@ Amplify.configure(awsExports);
 const App = ({ signOut, user }) => {
   //react-hook-form
   const { register, handleSubmit, reset, formState, formState: { errors }, formState: { isSubmitSuccessful } } = useForm();
+  const [submittedData, setSubmittedData] = useState({});
   const onSubmit = data => {
     data.status = "NOT DONE";
     console.log(data);
+    setSubmittedData(data);
   };
 
   //aws amplify ui library
@@ -36,6 +39,10 @@ const App = ({ signOut, user }) => {
       const todos = todoData.data.listTodos.items;
       return todos;
     }
+  })
+  const addMutation = useMutation({
+    mutationFn: (add) => fetch(`/api/data?add=${add}`),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['todos'] }),
   })
 
 
