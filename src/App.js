@@ -10,14 +10,18 @@ import {
 import IndieTodos from './components/IndieTodos';
 import { Flex, View, useTheme, TextField } from '@aws-amplify/ui-react';
 import { useForm } from "react-hook-form";
+import { useEffect } from "react";
 
 
 Amplify.configure(awsExports);
 
 const App = ({ signOut, user }) => {
   //react-hook-form
-  const { register, handleSubmit, formState: { errors } } = useForm();
-  const onSubmit = data => console.log(data);
+  const { register, handleSubmit, reset, formState, formState: { errors }, formState: { isSubmitSuccessful } } = useForm();
+  const onSubmit = data => {
+    data.status = "NOT DONE";
+    console.log(data);
+  };
 
   //aws amplify ui library
   const { tokens } = useTheme();
@@ -33,6 +37,14 @@ const App = ({ signOut, user }) => {
       return todos;
     }
   })
+
+
+  //resetting the form please
+  useEffect(() => {
+    if (formState.isSubmitSuccessful) {
+      reset({ name: '', description: '' });
+    }
+  }, [formState, reset]);
   return (
     <>
       <div style={styles.container}>
@@ -42,7 +54,7 @@ const App = ({ signOut, user }) => {
       </div>
 
       {/* The input form */}
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} style={styles.container}>
         {/* register your input into the hook by invoking the "register" function */}
         <TextField
           descriptiveText="Enter a valid name"
