@@ -6,6 +6,7 @@
     "@aws-amplify/ui-react": "^4.3.2",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "@mui/icons-material": "^5.11.0",
     "@mui/material": "^5.11.4",
     "@tanstack/react-query": "^4.20.9",
     "@testing-library/jest-dom": "^5.16.5",
@@ -41,5 +42,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.2.4"
   }
 }

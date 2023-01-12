@@ -10,9 +10,13 @@ import {
   useQueryClient,
 } from '@tanstack/react-query';
 import IndieTodos from './components/IndieTodos';
-import { Flex, View, useTheme, TextField } from '@aws-amplify/ui-react';
+import { Flex, View, useTheme, TextField, Divider } from '@aws-amplify/ui-react';
 import { useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import HandshakeIcon from '@mui/icons-material/Handshake';
+import LogoutIcon from '@mui/icons-material/Logout';
+import PetsIcon from '@mui/icons-material/Pets';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 
 Amplify.configure(awsExports);
@@ -38,7 +42,7 @@ const App = ({ signOut, user }) => {
   })
   //Mutations
   const addMutation = useMutation({
-    mutationFn: async (add) => await API.graphql(graphqlOperation(createTodo, {input: add})),
+    mutationFn: async (add) => await API.graphql(graphqlOperation(createTodo, { input: add })),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['todos'] }),
   })
 
@@ -52,12 +56,23 @@ const App = ({ signOut, user }) => {
   }, [formState, reset]);
   return (
     <>
-      <div style={styles.container}>
-        <Heading level={1}>Hello {user.username}</Heading>
-        <Button onClick={signOut} style={styles.button}>Sign out</Button>
-        <h2>NeverNote</h2>
+
+      <div className='flex justify-around py-5'>
+        <Heading level={5}>Hello! {user.username} <HandshakeIcon /> </Heading>
+
+
+        <Button onClick={signOut}>Sign out  <LogoutIcon /></Button>
+
       </div>
 
+
+      <Flex direction="column">
+        <Divider
+          orientation="horizontal" />
+      </Flex>
+
+
+      <h2 className='text-2xl text-center italic font-bold underline underline-offset-4'>NeverNote <PetsIcon /> </h2>
       {/* The input form */}
       <form onSubmit={handleSubmit((data) => {
         data.status = "NOT DONE";
@@ -70,7 +85,7 @@ const App = ({ signOut, user }) => {
           label="Name"
           errorMessage={errors.name} {...register("name", { required: true })}
         />
-        {errors.name && <span>This field is required</span>}
+        {errors.name && <span className='text-rose-500'>This field is required</span>}
         {/* include validation with required or other standard HTML validation rules */}
         <TextField
           descriptiveText="Enter a valid description"
@@ -79,14 +94,17 @@ const App = ({ signOut, user }) => {
           errorMessage={errors.name} {...register("description", { required: true })}
         />
         {/* errors will return when field validation fails  */}
-        {errors.description && <span>This field is required</span>}
+        {errors.description && <span className='text-rose-500'>This field is required</span>}
 
-        <button type="submit">Add Note</button>
+        <button type="submit" className='transition ease-in-out delay-50 mt-5 border-solid border-2 border-indigo-600 py-2 rounded-md font-bold hover:bg-sky-500/50'>Add Note <AddCircleIcon /> </button>
       </form>
 
 
- 
 
+      <Flex direction="column">
+        <Divider
+          orientation="horizontal" />
+      </Flex>
 
 
 
