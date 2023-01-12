@@ -107,43 +107,23 @@ const App = ({ signOut, user }) => {
       </Flex>
 
 
-
-      <Flex
-        direction="row"
-        justifyContent="flex-start"
-        alignItems="stretch"
-        alignContent="flex-start"
-        wrap="nowrap"
-        gap="1rem"
-      >
-        <View
-          height="100%"
-          width="30%"
-          backgroundColor={tokens.colors.blue[20]}
-        >
+      <div className='grid grid-cols-3 gap-3'>
+        <div>
           {query.data?.map((todo) => (
-            <IndieTodos id={todo.id} namey={todo.name} description={todo.description} status={todo.status} />
-          ))}
-        </View>
-        <View
-          height="100%"
-          width="30%"
-          backgroundColor={tokens.colors.blue[40]}
-        >
-          {query.data?.filter(label => label.status == "NOT DONE").map((todo) => (
-            <IndieTodos id={todo.id} namey={todo.name} description={todo.description} status={todo.status} />
-          ))}
-        </View>
-        <View
-          height="100%"
-          width="30%"
-          backgroundColor={tokens.colors.blue[60]}
-        >
-          {query.data?.filter(label => label.status == "DONE").map((todo) => (
-            <IndieTodos id={todo.id} namey={todo.name} description={todo.description} status={todo.status} />
-          ))}
-        </View>
-      </Flex>
+          <IndieTodos id={todo.id} namey={todo.name} description={todo.description} status={todo.status} />
+        ))}</div>
+        <div>{query.data?.filter(label => label.status == "NOT DONE").map((todo) => (
+          <IndieTodos id={todo.id} namey={todo.name} description={todo.description} status={todo.status} />
+        ))}</div>
+        <div>{query.data?.filter(label => label.status == "DONE").map((todo) => (
+          <IndieTodos id={todo.id} namey={todo.name} description={todo.description} status={todo.status} />
+        ))}</div>
+      </div>
+
+
+
+
+
     </>
   )
 }
