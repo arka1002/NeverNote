@@ -32,14 +32,21 @@ const App = ({ signOut, user }) => {
   // Queries
   const query = useQuery({
     queryKey: ['todos'], queryFn: async () => {
-      const todoData = await API.graphql(graphqlOperation(listTodos));
+      const todoData = await API.graphql({
+        query: listTodos,
+        authMode: 'AMAZON_COGNITO_USER_POOLS'
+      });
       const todos = todoData.data.listTodos.items;
       return todos;
     }
   })
   //Mutations
   const addMutation = useMutation({
-    mutationFn: async (add) => await API.graphql(graphqlOperation(createTodo, { input: add })),
+    mutationFn: async (add) => await API.graphql({
+      query: createTodo,
+      variables: { input: add },
+      authMode: 'AMAZON_COGNITO_USER_POOLS',
+    }),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['todos'] }),
   })
 

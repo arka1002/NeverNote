@@ -21,7 +21,7 @@ export default function IndieTodos({ id, namey, description, status }) {
   // Mutations
   const mutation = useMutation({
     mutationFn: async (add) => {
-      await API.graphql({ query: updateTodo, variables: { input: add } });
+      await API.graphql({ query: updateTodo, variables: { input: add }, authMode: 'AMAZON_COGNITO_USER_POOLS' });
     },
     onSuccess: () => {
       // Invalidate and refetch
