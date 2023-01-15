@@ -109,15 +109,23 @@ const App = ({ signOut, user }) => {
 
       <div className='grid grid-cols-3 gap-3'>
         <div>
+          <p className='text-xl text-center italic font-bold underline underline-offset-4 my-5'>All Notes</p>
           {query.data?.map((todo) => (
-          <IndieTodos id={todo.id} namey={todo.name} description={todo.description} status={todo.status} />
-        ))}</div>
-        <div>{query.data?.filter(label => label.status == "NOT DONE").map((todo) => (
-          <IndieTodos id={todo.id} namey={todo.name} description={todo.description} status={todo.status} />
-        ))}</div>
-        <div>{query.data?.filter(label => label.status == "DONE").map((todo) => (
-          <IndieTodos id={todo.id} namey={todo.name} description={todo.description} status={todo.status} />
-        ))}</div>
+            <IndieTodos id={todo.id} namey={todo.name} description={todo.description} status={todo.status} />
+          ))}
+        </div>
+        <div>
+          <p className='text-xl text-center italic font-bold underline underline-offset-4 my-5'>Active</p>
+          {query.data?.filter(label => label.status == "NOT DONE").map((todo) => (
+            <IndieTodos id={todo.id} namey={todo.name} description={todo.description} status={todo.status} />
+          ))}
+        </div>
+        <div>
+          <p className='text-xl text-center italic font-bold underline underline-offset-4 my-5'>Completed</p>
+          {query.data?.filter(label => label.status == "DONE").map((todo) => (
+            <IndieTodos id={todo.id} namey={todo.name} description={todo.description} status={todo.status} />
+          ))}
+        </div>
       </div>
 
 
