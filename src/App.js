@@ -26,9 +26,6 @@ const App = ({ signOut, user }) => {
   const { register, handleSubmit, reset, formState, formState: { errors }, formState: { isSubmitSuccessful } } = useForm();
 
 
-  //aws amplify ui library
-  const { tokens } = useTheme();
-
   // Access the client
   const queryClient = useQueryClient();
 
@@ -107,7 +104,7 @@ const App = ({ signOut, user }) => {
       </Flex>
 
 
-      <div className='grid grid-cols-3 gap-3'>
+      <div className='grid grid-cols-1 md:grid-cols-3 gap-3'>
         <div>
           <p className='text-xl text-center italic font-bold underline underline-offset-4 my-5'>All Notes</p>
           {query.data?.map((todo) => (

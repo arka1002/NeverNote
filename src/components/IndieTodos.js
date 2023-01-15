@@ -8,6 +8,8 @@ import {
   useMutation,
   useQueryClient,
 } from '@tanstack/react-query'
+import DoneAllIcon from '@mui/icons-material/DoneAll';
+import CloseIcon from '@mui/icons-material/Close';
 
 
 Amplify.configure(awsExports);
@@ -36,7 +38,7 @@ export default function IndieTodos({ id, namey, description, status }) {
         })
       }}
     >
-      DONE
+      <DoneAllIcon/>
     </Button>
   } else {
     content = <Button
@@ -47,7 +49,7 @@ export default function IndieTodos({ id, namey, description, status }) {
         })
       }}
     >
-      NOT DONE
+      <CloseIcon/>
     </Button>
   }
   return (
