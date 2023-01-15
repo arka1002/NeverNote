@@ -3,7 +3,7 @@
 # BRUH, DO NOT LOOK INTO THIS FILE
 input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
 
-type Todo @model {
+type Todo @model @auth(rules: [{ allow: owner }]) {
   id: ID!
   name: String!
   description: String
